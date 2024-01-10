@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.BorrowMapper">
+    <resultMap id="borrowMap" type="com.library.pojo.Borrow">
+        <id column="BorrowID" property="borrowId"/>
+        <result property="borrowTime" column="BorrowTime"/>
+        <result property="dueTime" column="DueTime"/>
+        <result property="returnTime" column="ReturnTime"/>
+        <result property="librarianJobNumber" column="LGH"/>
+        <result property="bookId" column="BookID"/>
+        <result property="readerId" column="ReaderID"/>
+        <result property="state" column="state"/>
+    </resultMap>
+    <update id="updateBorrowList">
+        update borrowing
+        <set>
+            <if test="borrowTime != null">
+                BorrowTime = #{borrowTime},
+            </if>
+            <if test="dueTime != null">
+                DueTime = #{dueTime},
+            </if>
+            <if test="returnTime != null">
+                ReturnTime = #{returnTime},
+            </if>
+            <if test="librarianJobNumber != null">
+                LGH = #{librarianJobNumber},
+            </if>
+            <if test="readerId != null">
+                ReaderID = #{readerId},
+            </if>
+            <if test="bookId != null">
+                BookID = #{bookId},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where BorrowID = #{borrowId}
+    </update>
+    <delete id="deleteBorrowList">
+        delete from borrowing
+        <where>
+            <if test="borrowId != null">
+                BorrowId = #{borrowId}
+            </if>
+            <if test="borrowTime != null">
+                and BorrowTime = #{borrowTime}
+            </if>
+            <if test="dueTime != null">
+                and DueTime = #{dueTime}
+            </if>
+            <if test="returnTime != null">
+                and ReturnTime = #{returnTime}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="bookId != null">
+                and BookID = #{bookId}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </delete>
+    <select id="getBorrow" resultMap="borrowMap">
+        select * from borrowing
+        where BorrowID = #{borrowId}
+        <if test="readerId != null">
+            and ReaderID = #{readerId}
+        </if>
+    </select>
+    <select id="getBorrowList" resultMap="borrowMap">
+        select * from borrowing
+        <where>
+            <if test="borrowId != null">
+                BorrowId = #{borrowId}
+            </if>
+            <if test="borrowTime != null">
+                and BorrowTime = #{borrowTime}
+            </if>
+            <if test="dueTime != null">
+                and DueTime = #{dueTime}
+            </if>
+            <if test="returnTime != null">
+                and ReturnTime = #{returnTime}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="bookId != null">
+                and BookID = #{bookId}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+</mapper>

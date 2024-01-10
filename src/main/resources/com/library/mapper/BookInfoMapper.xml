@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.BookInfoMapper">
+    <resultMap id="bookInfoMap" type="com.library.pojo.BookInfo">
+        <id property="id" column="ID"/>
+        <result column="ISBN" property="isbn"/>
+        <result column="Location" property="location"/>
+        <result column="State" property="state"/>
+        <result column="LibrarianGH" property="librarianJobNumber"/>
+    </resultMap>
+    <update id="updateBookInfo">
+        update bookinfo
+        <set>
+            <if test="isbn != null">
+                ISBN = #{isbn},
+            </if>
+            <if test="location != null">
+                Location = #{location},
+            </if>
+            <if test="state != null">
+                State = #{state},
+            </if>
+            <if test="librarianJobNumber != null">
+                LibrarianGH = #{librarianJobNumber},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <delete id="deleteBookInfo">
+        delete from bookinfo
+        <where>
+            <if test="isbn != null">
+                ISBN = #{isbn}
+            </if>
+            <if test="location != null">
+                and Location = #{location}
+            </if>
+            <if test="state != null">
+                and State = #{state}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LibrarianGH = #{librarianJobNumber}
+            </if>
+            <if test="id != null">
+                and ID = #{id}
+            </if>
+        </where>
+    </delete>
+    <select id="getBookInfos" resultMap="bookInfoMap">
+        select * from bookinfo
+        <where>
+            <if test="id != null">
+                and ID = #{id}
+            </if>
+            <if test="isbn != null">
+                and ISBN = #{isbn}
+            </if>
+            <if test="location != null">
+                and Location = #{location}
+            </if>
+            <if test="state != null">
+                and State = #{state}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LibrarianGH = #{librarianJobNumber}
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>

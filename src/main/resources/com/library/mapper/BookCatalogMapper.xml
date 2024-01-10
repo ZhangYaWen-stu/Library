@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.BookCatalogMapper">
+
+    <resultMap id="bookCatalogMapper" type="com.library.pojo.BookCatalog">
+
+        <id column="ISBN" property="isbn"/>
+        <result column="BookName" property="bookName"/>
+        <result column="Author" property="author"/>
+        <result column="Publisher" property="publisher"/>
+        <result column="PublishingDate" property="publishDate"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="TotalCopies" property="totalCopies"/>
+        <result column="LibrarianGH" property="librarianJobNumber"/>
+        <result column="cover" property="cover"/>
+        <result column="CurrentCopies" property="canBorrow"/>
+
+    </resultMap>
+
+    <select id="getBookCatalog" resultMap="bookCatalogMapper">
+            select * from bookcatalog
+            <where>
+                <if test="isbn != null">
+                    and ISBN  Like #{isbn}
+                </if>
+                <if test="author != null">
+                    and Author Like #{author}
+                </if>
+                <if test="bookName != null">
+                    and BookName Like #{bookName}
+                </if>
+                <if test="publisher != null">
+                    and Publisher Like #{publisher}
+                </if>
+                <if test="publishDate != null">
+                    and PublishingDate=#{publishDate}
+                </if>
+                <if test="librarianJobNumber != null">
+                    and LibrarianGH=#{librarianJobNumber}
+                </if>
+                <if test="unitPrice != null">
+                    and unit_price <![CDATA[<]]> #{unitPrice}
+                </if>
+                <if test="canBorrow != null">
+                    and CurrentCopies = #{canBorrow}
+                </if>
+            </where>
+    </select>
+
+    <insert id="addBookCatalog">
+            insert into bookcatalog(ISBN,BookName,Author,Publisher,PublishingDate,unit_price,LibrarianGH,cover)
+    values (#{isbn},#{bookName},#{author},#{publisher},#{publishDate},#{unitPrice},#{librarianJobNumber}, #{cover})
+    </insert>
+
+    <update id="updateBookCatalog">
+            update bookcatalog
+            <set>
+                <if test="bookName != null">
+                    BookName=#{bookName},
+                </if>
+                <if test="author != null">
+                    Author=#{author},
+                </if>
+                <if test="publisher != null">
+                    Publisher=#{publisher},
+                </if>
+                <if test="publishDate != null">
+                    PublishingDate=#{publishDate},
+                </if>
+                <if test="unitPrice != null">
+                    unit_price=#{unitPrice},
+                </if>
+                <if test="totalCopies != null">
+                    TotalCopies=#{totalCopies},
+                </if>
+                <if test="librarianJobNumber != null">
+                    LibrarianGH=#{librarianJobNumber},
+                </if>
+                <if test="cover != null">
+                    cover=#{cover},
+                </if>
+                <if test="canBorrow != null">
+                    CurrentCopies=#{canBorrow},
+                </if>
+            </set>
+            where ISBN=#{isbn}
+    </update>
+
+
+</mapper>

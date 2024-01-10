@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.library.mapper.ReaderMapper">
+
+    <resultMap id="readerMap" type="com.library.pojo.Reader">
+        <id column="ID" property="id"/>
+        <result column="XM" property="name"/>
+        <result column="Tel" property="telephoneNumber"/>
+        <result column="Email" property="email"/>
+        <result column="Password" property="password"/>
+        <result column="Username" property="userName"/>
+        <result column="BorrNum" property="borrowNum"/>
+        <result column="avatar" property="avatar"/>
+    </resultMap>
+
+
+    <update id="updateReader">
+        update reader
+        <set>
+            <if test="name != null">
+                XM=#{name},
+            </if>
+            <if test="telephoneNumber != null">
+                Tel=#{telephoneNumber},
+            </if>
+            <if test="email != null">
+                Email=#{email},
+            </if>
+            <if test="password != null">
+                Password=#{password},
+            </if>
+            <if test="borrowNum != null">
+                BorrNum=#{borrowNum},
+            </if>
+            <if test="avatar != null">
+                avatar=#{avatar},
+            </if>
+        </set>
+            where ID = #{id}
+    </update>
+
+    <select id="getReaderList" resultMap="readerMap">
+        select * from reader
+        <where>
+            <if test="name != null">
+                XM like concat('%',#{name},'%')
+            </if>
+            <if test="telephoneNumber != null">
+                and Tel = #{telephoneNumber}
+            </if>
+            <if test="email != null">
+                and Email = #{email}
+            </if>
+            <if test="userName != null">
+                and Username like concat('%',#{userName},'%')
+            </if>
+            <if test="id != null">
+                and ID = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>

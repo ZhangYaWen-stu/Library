@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library
+    username: root
+    password: root
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail:
+    host: smtp.qq.com
+    username: 1256852079@qq.com
+    password: zximrxagdvbuijhg
+    port: 587
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: false
+            required: false
+        debug: true
+
+jwt:
+  key: library
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI5t8WQH3kZj82sLNyuEZa
+    accessKeySecret: 6CDw4YVvbbUEoXYqSAgZyLETUu5knx
+    bucketName: alibrary-task
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
+server:
+  port: 8080
+

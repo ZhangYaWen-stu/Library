@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.library.mapper.ReservationMapper">
+    <resultMap id="reservationMap" type="com.library.pojo.Reservation">
+        <id property="reservationId" column="ReservationID"/>
+        <result property="isbn" column="ISBN"/>
+        <result column="ReaderID" property="readerId"/>
+        <result property="reservationDeadline" column="ReservationDeadline"/>
+        <result column="LGH" property="librarianJobNumber"/>
+        <result column="ReservationTime" property="reservationTime"/>
+        <result column="state" property="state"/>
+    </resultMap>
+    <update id="updateReservation">
+        update reservation
+        <set>
+            <if test="reservationTime != null">
+                ReservationTime = #{reservationTime},
+            </if>
+            <if test="reservationDeadline != null">
+                ReservationDeadline = #{reservationDeadline},
+            </if>
+            <if test="librarianJobNumber != null">
+                LGH = #{librarianJobNumber},
+            </if>
+            <if test="readerId != null">
+                ReaderID = #{readerId},
+            </if>
+            <if test="isbn != null">
+                ISBN = #{isbn},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where ReservationID = #{reservationId}
+    </update>
+    <delete id="deleteReservationList">
+        delete from reservation
+        <where>
+            <if test="reservationId != null">
+                and ReservationID = #{reservationId}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="isbn != null">
+                and ISBN = #{isbn}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </delete>
+    <select id="getReservationList" resultMap="reservationMap">
+        select * from reservation
+        <where>
+            <if test="reservationId != null">
+                and ReservationID = #{reservationId}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="isbn != null">
+                and ISBN = #{isbn}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+        order by ReservationTime ASC
+    </select>
+    <select id="getReservation" resultMap="reservationMap">
+        select * from reservation
+        where ReservationID = #{reservationId}
+        <if test="readerId != null">
+            and ReaderID = #{readerId}
+        </if>
+    </select>
+</mapper>

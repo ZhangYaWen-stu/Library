@@ -1,0 +1,26 @@
+package com.library.mapper;
+
+import com.library.pojo.BookInfo;
+import com.library.pojo.Borrow;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
+@Mapper
+public interface BookInfoMapper {
+
+    List<BookInfo> getBookInfos(BookInfo bookInfo);
+
+    void updateBookInfo(BookInfo bookInfo);
+
+    @Insert("insert into bookinfo(ISBN, Location, State, LibrarianGH) values (#{isbn}, #{location}, #{state}, #{librarianJobNumber})")
+    void addBookInfo(BookInfo bookInfo);
+
+    void deleteBookInfo(BookInfo bookInfo);
+
+    @Select("select * from bookinfo where ID = #{id}")
+    BookInfo getBookInfoById(Integer id);
+
+}
