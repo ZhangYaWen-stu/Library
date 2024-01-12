@@ -76,7 +76,7 @@ public class ReservationController {
     }
 
 
-    @GetMapping("getReservationReader")
+    @PostMapping("getReservationReader")
     public Result getReservationReader(Integer page, Integer pageSize, @RequestBody Reservation reservation){
         Map<String, Object> claim = LocalThread.get();
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
@@ -128,13 +128,13 @@ public class ReservationController {
         reservationService.addReservation(reservation);
         return Result.success();
     }
-    @GetMapping("/admin/queryReservation")
+    @PostMapping("/admin/queryReservation")
     public Result queryReservation(Integer page, Integer pageSize, @RequestBody Reservation reservation){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         List<Reservation> reservations = reservationService.queryReservation(reservation);
         return Result.success(reservations);
     }
-    @GetMapping("/admin/getReservationBook")
+    @PostMapping("/admin/getReservationBook")
     public Result getReservationBook(@RequestBody Reimburse reimburse){
         Integer readerId = reimburse.getReaderId();
         String isbn = reimburse.getIsbn();

@@ -19,7 +19,7 @@ public class BookCatalogController {
     @Autowired
     private BookCatalogService bookCatalogService;
 
-    @GetMapping("/queryBookCatalog")
+    @PostMapping("/queryBookCatalog")
     public Result queryBookCatalog(@RequestBody BookCatalog bookCatalog, Integer page, Integer pageSize){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         List<BookCatalog> bookCatalog_ = bookCatalogService.getBookCatalog(bookCatalog);
@@ -39,7 +39,7 @@ public class BookCatalogController {
         bookCatalogService.addBookCatalog(bookCatalog);
         return Result.success();
     }
-    @DeleteMapping("/admin/deleteBookCatalog")
+    @PostMapping("/admin/deleteBookCatalog")
     public Result deleteBookCatalog(BookCatalog bookCatalog){
         BookCatalog bookCatalog_ = new BookCatalog();
         bookCatalog_.setIsbn(bookCatalog.getIsbn());
