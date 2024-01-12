@@ -25,7 +25,7 @@ public class BookInfoController {
     @Autowired
     BorrowService borrowService;
 
-    @GetMapping("/getBook")
+    @GetMapping("/api/getBook")
     public Result getBook(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         bookInfo.setLibrarianJobNumber(null);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);

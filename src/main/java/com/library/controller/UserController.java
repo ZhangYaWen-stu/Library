@@ -25,6 +25,7 @@ import static java.lang.System.out;
 
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
