@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.spi.SyncResolver;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,14 +45,28 @@ public class UserController {
         String token = userService.loginLibrarian(username, password);
         ValueOperations<String, String> stringStringValueOperations = stringRedisTemplate.opsForValue();
         if(token != null){
-            Result result = Result.success(token);
+            Librarian librarian = new Librarian();
+            librarian.setUserName(username);
+            librarian.setPassword(password);
+            librarian = userService.getLibrarian(librarian);
+            Map<String, Object> userinfo = new HashMap<>();
+            userinfo.put("userinfo", librarian);
+            userinfo.put("token", token);
+            Result result = Result.success(userinfo);
             stringStringValueOperations.set(token,token);
             result.setCode(Code.ADMIN_USER);
             return result;
         }
         token = userService.loginReader(username, password);
         if(token != null){
-            Result result = Result.success(token);
+            Reader reader = new Reader();
+            reader.setUserName(username);
+            reader.setPassword(password);
+            reader = userService.getReader(reader);
+            Map<String, Object> userinfo = new HashMap<>();
+            userinfo.put("userinfo", reader);
+            userinfo.put("token", token);
+            Result result = Result.success(userinfo);
             stringStringValueOperations.set(token,token);
             result.setCode(Code.READER_USER);
             return result;
@@ -64,12 +79,14 @@ public class UserController {
     {
         String username = req.get("username");
         String password = req.get("password");
+        String email = req.get("email");
         if(userService.getReaderByName(username) != null){
             return Result.error("用户已存在");
         }
         Reader reader = new Reader();
         reader.setUserName(username);
         reader.setPassword(password);
+        reader.setEmail(email);
         userService.addReader(reader);
         return Result.success();
     }
