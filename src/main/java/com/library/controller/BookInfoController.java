@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/bookInfo")
+@RequestMapping("/api/bookInfo")
 public class BookInfoController {
     @Autowired
     BookInfoService bookInfoService;
