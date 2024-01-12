@@ -18,8 +18,8 @@ public interface ReaderMapper {
     @ResultMap("readerMap")
     List<Reader> getReaderList(Reader reader);
 
-    @Insert("insert into reader(Username,Password) " +
-            "values(#{userName},#{password})")
+    @Insert("insert into reader(Username,Password,Email) " +
+            "values(#{userName},#{password}, #{email})")
     void addReader(Reader reader);
     @Delete("delete from reader where ID = #{id}")
     void deleteReaderById(Integer id);
