@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/bookInfo")
+@RequestMapping("/api/bookInfo")
 public class BookInfoController {
     @Autowired
     BookInfoService bookInfoService;
@@ -25,7 +25,7 @@ public class BookInfoController {
     @Autowired
     BorrowService borrowService;
 
-    @GetMapping("/api/getBook")
+    @GetMapping("/getBook")
     public Result getBook(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         bookInfo.setLibrarianJobNumber(null);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
