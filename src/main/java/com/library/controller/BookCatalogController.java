@@ -39,7 +39,7 @@ public class BookCatalogController {
         bookCatalogService.addBookCatalog(bookCatalog);
         return Result.success();
     }
-    @PostMapping("/admin/deleteBookCatalog")
+    @DeleteMapping("/admin/deleteBookCatalog")
     public Result deleteBookCatalog(BookCatalog bookCatalog){
         BookCatalog bookCatalog_ = new BookCatalog();
         bookCatalog_.setIsbn(bookCatalog.getIsbn());
