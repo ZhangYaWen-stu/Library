@@ -27,7 +27,7 @@ public class ReservationController {
     @Autowired
     BorrowService borrowService;
 
-    @DeleteMapping("/deleteReservationReader")
+    @GetMapping("/deleteReservationReader")
     public Result deleteReservationReader(Integer reservationId) throws Exception {
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -85,7 +85,7 @@ public class ReservationController {
         return Result.success(reservationService.queryReservation(reservation));
     }
 
-    @DeleteMapping("/admin/deleteReservation")
+    @GetMapping("/admin/deleteReservation")
     public Result deleteReservation(Integer reservationId) throws Exception {
         Reservation reservation = new Reservation();
         reservation.setReservationId(reservationId);
@@ -105,7 +105,7 @@ public class ReservationController {
         reservationService.deleteReservationList(reservation);
         return Result.success();
     }
-    @PutMapping("/admin/addReservation")
+    @PostMapping("/admin/addReservation")
     public Result addReservation(@RequestBody Reservation reservation){
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());

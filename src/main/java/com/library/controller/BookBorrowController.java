@@ -30,12 +30,12 @@ public class BookBorrowController {
     @Autowired
     UserService userService;
 
-    @PatchMapping("/returnBook")
+    @PostMapping("/returnBook")
     public Result returnBook(Integer borrowId)throws Exception{
         return borrowService.returnBook(borrowId);
     }
 
-    @PutMapping("/borrowBook")
+    @PostMapping("/borrowBook")
     public Result borrowBook(@RequestBody Borrow borrow, String isbn, Integer borrowNum) throws Exception{
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());

@@ -43,7 +43,7 @@ public class BookInfoController {
         return Result.success(bookInfos);
     }
 
-    @PatchMapping("/admin/updateBookInfo")
+    @PostMapping("/admin/updateBookInfo")
     public Result updateBookInfo(@RequestBody BookInfo bookInfo) throws Exception{
         BookInfo bookInfo_ = bookInfoService.getBookById(bookInfo.getId());
         if(bookInfo_ == null){
@@ -59,7 +59,7 @@ public class BookInfoController {
         return Result.success();
     }
 
-    @PutMapping("/admin/addBookInfo")
+    @PostMapping("/admin/addBookInfo")
     public Result addBookInfo(@RequestBody BookInfo bookInfo) throws Exception {
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());

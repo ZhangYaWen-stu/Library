@@ -102,7 +102,7 @@ public class UserController {
         return Result.success(reader_);
     }
 
-    @PatchMapping("/updatePassword")
+    @PostMapping("/updatePassword")
     public Result updatePassword(@RequestBody Map<String, String> req, @RequestHeader("Authorization") String token){
         String oldPassword = req.get("old_password");
         String newPassword = req.get("new_password");
@@ -131,13 +131,13 @@ public class UserController {
         }
         return Result.error();
     }
-    @PatchMapping("/updateAvatar")
+    @PostMapping("/updateAvatar")
     public Result updateAvatar(@RequestPart("file") MultipartFile file) throws Exception {
         String newUrl = userService.updateAvatar(file);
         return Result.success(newUrl);
     }
 
-    @PutMapping("/updateUserInfo")
+    @PostMapping("/updateUserInfo")
     public Result updateUserInfo(@RequestBody Reader reader){
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -173,12 +173,12 @@ public class UserController {
         List<Reader> readers = userService.getReadeList(reader);
         return Result.success(readers);
     }
-    @DeleteMapping("/admin/deleteReader")
+    @GetMapping("/admin/deleteReader")
     public Result deleteReader(Integer id){
         userService.deleteReaderById(id);
         return Result.success();
     }
-    @PatchMapping("/admin/updateReader")
+    @PostMapping("/admin/updateReader")
     public Result updateReader(@RequestBody Reader reader){
         userService.updateReader(reader);
         return Result.success();

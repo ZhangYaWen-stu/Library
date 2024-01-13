@@ -26,7 +26,7 @@ public class BookCatalogController {
         return Result.success(bookCatalog_);
     }
 
-    @PutMapping("/admin/addBookCatalog")
+    @PostMapping("/admin/addBookCatalog")
     public Result addBookCatalog(@RequestBody BookCatalog bookCatalog){
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -39,7 +39,7 @@ public class BookCatalogController {
         bookCatalogService.addBookCatalog(bookCatalog);
         return Result.success();
     }
-    @DeleteMapping("/admin/deleteBookCatalog")
+    @GetMapping("/admin/deleteBookCatalog")
     public Result deleteBookCatalog(BookCatalog bookCatalog){
         BookCatalog bookCatalog_ = new BookCatalog();
         bookCatalog_.setIsbn(bookCatalog.getIsbn());
@@ -50,7 +50,7 @@ public class BookCatalogController {
         return Result.success();
     }
 
-    @PatchMapping("/admin/modifyBookCatalog")
+    @PostMapping("/admin/modifyBookCatalog")
     public Result modifyBookCatalog(@RequestBody BookCatalog bookCatalog){
         if(bookCatalogService.getBookCatalogByIsbn(bookCatalog.getIsbn()) == null){
             return Result.fail("该书目不存在");
@@ -59,7 +59,7 @@ public class BookCatalogController {
         return Result.success();
     }
 
-    @PatchMapping("/admin/updateBookCatalogCover")
+    @PostMapping("/admin/updateBookCatalogCover")
     public Result updateBookCatalogCover(String isbn, @RequestPart("file") MultipartFile file) throws Exception {
 
         if(bookCatalogService.getBookCatalogByIsbn(isbn) == null){
