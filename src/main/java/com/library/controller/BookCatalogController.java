@@ -27,6 +27,13 @@ public class BookCatalogController {
         return Result.success(bookCatalog_);
     }
 
+    @PostMapping("/admin/queryBookCatalog")
+    public Result adminQueryBookCatalog(@RequestBody BookCatalog bookCatalog, Integer page, Integer pageSize){
+        PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
+        List<BookCatalog> bookCatalog_ = bookCatalogService.getBookCatalog(bookCatalog);
+        return Result.success(bookCatalog_);
+    }
+
     @PostMapping("/admin/addBookCatalog")
     public Result addBookCatalog(@RequestBody BookCatalog bookCatalog){
         Map<String, Object> claim = LocalThread.get();
