@@ -134,7 +134,9 @@ public class UserController {
     @PostMapping("/updateAvatar")
     public Result updateAvatar(@RequestPart("file") MultipartFile file) throws Exception {
         String newUrl = userService.updateAvatar(file);
-        return Result.success(newUrl);
+        Map<String, Object>url = new HashMap<>();
+        url.put("url", newUrl);
+        return Result.success(url);
     }
 
     @PostMapping("/updateUserInfo")

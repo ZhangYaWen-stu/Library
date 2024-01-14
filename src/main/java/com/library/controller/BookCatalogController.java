@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,8 +66,10 @@ public class BookCatalogController {
         if(bookCatalogService.getBookCatalogByIsbn(isbn) == null){
             return Result.fail("该书目不存在");
         }
-        bookCatalogService.updateBookCatalogCover(isbn, file);
-        return Result.success();
+        String url_ = bookCatalogService.updateBookCatalogCover(isbn, file);
+        Map<String, Object>url = new HashMap<>();
+        url.put("url", url_);
+        return Result.success(url);
     }
 
 
