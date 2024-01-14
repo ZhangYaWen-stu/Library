@@ -25,7 +25,7 @@ public class BookInfoController {
     @Autowired
     BorrowService borrowService;
 
-    @GetMapping("/getBook")
+    @PostMapping("/getBook")
     public Result getBook(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         bookInfo.setLibrarianJobNumber(null);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
@@ -36,14 +36,14 @@ public class BookInfoController {
         return Result.success(bookInfos);
     }
 
-    @GetMapping("/admin/getBookInfo")
+    @PostMapping("/admin/getBookInfo")
     public Result getBookInfo(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
         return Result.success(bookInfos);
     }
 
-    @PatchMapping("/admin/updateBookInfo")
+    @PostMapping("/admin/updateBookInfo")
     public Result updateBookInfo(@RequestBody BookInfo bookInfo) throws Exception{
         BookInfo bookInfo_ = bookInfoService.getBookById(bookInfo.getId());
         if(bookInfo_ == null){
@@ -59,7 +59,7 @@ public class BookInfoController {
         return Result.success();
     }
 
-    @PutMapping("/admin/addBookInfo")
+    @PostMapping("/admin/addBookInfo")
     public Result addBookInfo(@RequestBody BookInfo bookInfo) throws Exception {
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -71,7 +71,7 @@ public class BookInfoController {
         return Result.success();
     }
 
-    @DeleteMapping("/admin/deleteBookInfo")
+    @PostMapping("/admin/deleteBookInfo")
     public Result deleteBookInfo(@RequestBody BookInfo bookInfo){
         List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
         if(bookInfos.isEmpty()){

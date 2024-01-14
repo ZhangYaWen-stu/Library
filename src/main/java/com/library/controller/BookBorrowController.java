@@ -30,12 +30,12 @@ public class BookBorrowController {
     @Autowired
     UserService userService;
 
-    @PatchMapping("/returnBook")
+    @PostMapping("/returnBook")
     public Result returnBook(Integer borrowId)throws Exception{
         return borrowService.returnBook(borrowId);
     }
 
-    @PutMapping("/borrowBook")
+    @PostMapping("/borrowBook")
     public Result borrowBook(@RequestBody Borrow borrow, String isbn, Integer borrowNum) throws Exception{
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -87,7 +87,7 @@ public class BookBorrowController {
         return Result.fail();
     }
 
-    @GetMapping("/getBorrowBookList")
+    @PostMapping("/getBorrowBookList")
     public Result getBorrowBookList(@RequestBody Borrow borrow, Integer page, Integer pageSize) {
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -96,14 +96,14 @@ public class BookBorrowController {
         List<Borrow> borrowList = borrowService.getBorrowList(borrow);
         return Result.success(borrowList);
     }
-    @GetMapping("/admin/getBorrowBookList")
+    @PostMapping("/admin/getBorrowBookList")
     public Result getBorrowBookListAdmin(@RequestBody Borrow borrow, Integer page, Integer pageSize) {
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         List<Borrow> borrowList = borrowService.getBorrowList(borrow);
         return Result.success(borrowList);
     }
 
-    @GetMapping("/admin/updateBorrowBookList")
+    @PostMapping("/admin/updateBorrowBookList")
     public Result updateBorrowBookList(@RequestBody Borrow borrow) throws Exception {
         if(borrow.getReaderId() != null)
             return Result.fail("不可修改读者id");
@@ -111,7 +111,7 @@ public class BookBorrowController {
         return Result.success();
     }
 
-    @DeleteMapping("/admin/deleteBorrowBookList")
+    @PostMapping("/admin/deleteBorrowBookList")
     public Result deleteBorrowBookList(@RequestBody Borrow borrow) throws Exception {
         borrowService.deleteBorrowList(borrow);
         return Result.success();

@@ -27,7 +27,7 @@ public class ReservationController {
     @Autowired
     BorrowService borrowService;
 
-    @DeleteMapping("/deleteReservationReader")
+    @GetMapping("/deleteReservationReader")
     public Result deleteReservationReader(Integer reservationId) throws Exception {
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -76,7 +76,7 @@ public class ReservationController {
     }
 
 
-    @GetMapping("getReservationReader")
+    @PostMapping("getReservationReader")
     public Result getReservationReader(Integer page, Integer pageSize, @RequestBody Reservation reservation){
         Map<String, Object> claim = LocalThread.get();
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
@@ -85,7 +85,7 @@ public class ReservationController {
         return Result.success(reservationService.queryReservation(reservation));
     }
 
-    @DeleteMapping("/admin/deleteReservation")
+    @GetMapping("/admin/deleteReservation")
     public Result deleteReservation(Integer reservationId) throws Exception {
         Reservation reservation = new Reservation();
         reservation.setReservationId(reservationId);
@@ -105,7 +105,7 @@ public class ReservationController {
         reservationService.deleteReservationList(reservation);
         return Result.success();
     }
-    @PutMapping("/admin/addReservation")
+    @PostMapping("/admin/addReservation")
     public Result addReservation(@RequestBody Reservation reservation){
         Map<String, Object> claim = LocalThread.get();
         Integer id = Integer.parseInt(claim.get("id").toString());
@@ -128,13 +128,13 @@ public class ReservationController {
         reservationService.addReservation(reservation);
         return Result.success();
     }
-    @GetMapping("/admin/queryReservation")
+    @PostMapping("/admin/queryReservation")
     public Result queryReservation(Integer page, Integer pageSize, @RequestBody Reservation reservation){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         List<Reservation> reservations = reservationService.queryReservation(reservation);
         return Result.success(reservations);
     }
-    @GetMapping("/admin/getReservationBook")
+    @PostMapping("/admin/getReservationBook")
     public Result getReservationBook(@RequestBody Reimburse reimburse){
         Integer readerId = reimburse.getReaderId();
         String isbn = reimburse.getIsbn();
