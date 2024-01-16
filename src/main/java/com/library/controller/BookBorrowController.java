@@ -87,6 +87,56 @@ public class BookBorrowController {
         return Result.fail();
     }
 
+    @PostMapping("/admin/borrowBook")
+    public Result borrowBookAdmin(@RequestBody Borrow borrow, String isbn, Integer borrowNum) throws Exception{
+        Integer id = borrow.getReaderId();
+        if(borrow.getBookId() == null){
+            BookInfo bookInfo = new BookInfo();
+            bookInfo.setState("canBorrow");
+            bookInfo.setIsbn(isbn);
+            if(bookCatalogService.getBookCatalogByIsbn(isbn) == null){
+                return Result.fail("无本种数目");
+            }
+            if(bookCatalogService.getBookCatalogByIsbn(isbn).getCanBorrow() < borrowNum){
+                return Result.fail("该书已无足够剩余书籍");
+            }
+            List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
+            for(int i = 0; i < borrowNum; i++){
+                BookInfo bookInfo_ = bookInfos.get(i);
+                bookInfo_.setState("borrowed");
+                bookInfoService.updateBookInfo(bookInfo_);
+                borrow.setState("normal");
+                borrow.setBookId(bookInfo_.getId());
+                borrow.setBorrowTime(new Date());
+                borrowService.addBorrow(borrow);
+                bookCatalogService.setCanBorrow(-1, bookInfo_.getIsbn());
+                userService.updateBorrowNum(1, id);
+
+            }
+            return Result.success();
+        }
+        else {
+            BookInfo bookInfo = new BookInfo();
+            bookInfo.setState("canBorrow");
+            bookInfo.setId(borrow.getBookId());
+            List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
+            if(!bookInfos.isEmpty()){
+                userService.updateBorrowNum(1, id);
+                bookCatalogService.setCanBorrow(-1, isbn);
+                bookInfo = bookInfos.get(0);
+                bookInfo.setState("borrowed");
+                bookInfoService.updateBookInfo(bookInfo);
+                borrow.setState("normal");
+                borrow.setBookId(bookInfo.getId());
+                borrow.setBorrowTime(new Date());
+                borrowService.addBorrow(borrow);
+                bookCatalogService.setCanBorrow(-1, bookInfo.getIsbn());
+                return Result.success();
+            }
+        }
+        return Result.fail();
+    }
+
     @PostMapping("/getBorrowBookList")
     public Result getBorrowBookList(@RequestBody Borrow borrow, Integer page, Integer pageSize) {
         Map<String, Object> claim = LocalThread.get();
