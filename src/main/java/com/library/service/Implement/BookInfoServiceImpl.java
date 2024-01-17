@@ -121,4 +121,9 @@ public class BookInfoServiceImpl implements BookInfoService {
     public BookInfo getBookById(Integer id) {
         return bookInfoMapper.getBookInfoById(id);
     }
+
+    @Override
+    public List<Book> getBookInfoAll(BookInfo bookInfo) {
+        return bookInfoMapper.getBookInfoAll(bookInfo);
+    }
 }

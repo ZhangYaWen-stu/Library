@@ -13,6 +13,18 @@
         <result column="ReservationTime" property="reservationTime"/>
         <result column="state" property="state"/>
     </resultMap>
+
+    <resultMap id="reservationAllMap" type="com.library.pojo.ReservationList">
+        <id property="reservationId" column="ReservationID"/>
+        <result property="isbn" column="ISBN"/>
+        <result column="ReaderID" property="readerId"/>
+        <result property="reservationDeadline" column="ReservationDeadline"/>
+        <result column="LGH" property="librarianJobNumber"/>
+        <result column="ReservationTime" property="reservationTime"/>
+        <result column="state" property="state"/>
+        <result column="BookName" property="bookName"/>
+        <result column="Username" property="userName"/>
+    </resultMap>
     <update id="updateReservation">
         update reservation
         <set>
@@ -84,5 +96,37 @@
         <if test="readerId != null">
             and ReaderID = #{readerId}
         </if>
+    </select>
+
+    <select id="getReservationListAll" resultMap="reservationAllMap">
+        select  reservation.ReservationID as ReservationID,
+                reservation.ReaderID as ReaderID,
+                reservation.ISBN as ISBN,
+                reservation.ReservationTime as ReservationTime,
+                reservation.ReservationDeadline as ReservationDeadline,
+                reservation.LGH as LGH,
+                reservation.state as state,
+                reader.Username as Username,
+                bookcatalog.BookName as BookName
+        from reservation, bookcatalog, reader
+        where
+            reservation.ISBN = bookcatalog.ISBN and
+            reservation.ReaderID = reader.ID
+            <if test="reservationId != null">
+                and ReservationID = #{reservationId}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="isbn != null">
+                and ISBN = #{isbn}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        order by ReservationTime ASC
     </select>
 </mapper>

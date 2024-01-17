@@ -82,7 +82,7 @@ public class ReservationController {
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
         Integer id = Integer.parseInt(claim.get("id").toString());
         reservation.setReaderId(id);
-        return Result.success(reservationService.queryReservation(reservation));
+        return Result.success(reservationService.queryReservationList(reservation));
     }
 
     @GetMapping("/admin/deleteReservation")
@@ -131,7 +131,7 @@ public class ReservationController {
     @PostMapping("/admin/queryReservation")
     public Result queryReservation(Integer page, Integer pageSize, @RequestBody Reservation reservation){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<Reservation> reservations = reservationService.queryReservation(reservation);
+        List<ReservationList> reservations = reservationService.queryReservationList(reservation);
         return Result.success(reservations);
     }
     @PostMapping("/admin/getReservationBook")

@@ -1,6 +1,7 @@
 package com.library.service;
 
 import com.library.pojo.Borrow;
+import com.library.pojo.BorrowList;
 import com.library.pojo.Result;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface BorrowService {
     void reservationRemind(String isbn)throws Exception;
 
     void addBorrow(Borrow borrow);
+
+    List<BorrowList> getBorrowListAll(Borrow borrow);
 }
