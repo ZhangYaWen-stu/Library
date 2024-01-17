@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static java.lang.System.out;
+
 @SpringBootTest
 public class BookInfoTest {
     @Autowired
@@ -15,9 +17,10 @@ public class BookInfoTest {
 
     @Test
     public void bookInfoAll(){
+
         BookInfo bookInfo = new BookInfo();
-        bookInfo.setId(1);
-        bookInfoMapper.getBookInfoAll(bookInfo);
+        bookInfo.setIsbn("1212121212121");
+        out.println(bookInfoMapper.getBookInfoAll(bookInfo));
 
     }
 }

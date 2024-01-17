@@ -90,19 +90,19 @@
         where
             bookcatalog.ISBN = bookinfo.ISBN
             <if test="id != null">
-                and ID = #{id}
+                and bookinfo.ID = #{id}
             </if>
             <if test="isbn != null">
-                and ISBN = #{isbn}
+                and bookinfo.ISBN = #{isbn}
             </if>
             <if test="location != null">
-                and Location = #{location}
+                and bookinfo.Location = #{location}
             </if>
             <if test="state != null">
-                and State = #{state}
+                and bookinfo.State = #{state}
             </if>
             <if test="librarianJobNumber != null">
-                and LibrarianGH = #{librarianJobNumber}
+                and bookinfo.LibrarianGH = #{librarianJobNumber}
             </if>
     </select>
 

@@ -131,28 +131,28 @@
             borrowing.ReaderID = reader.ID and
             bookinfo.ISBN = bookcatalog.ISBN
             <if test="borrowId != null">
-                and BorrowId = #{borrowId}
+                and borrowing.BorrowId = #{borrowId}
             </if>
             <if test="borrowTime != null">
-                and BorrowTime = #{borrowTime}
+                and borrowing.BorrowTime = #{borrowTime}
             </if>
             <if test="dueTime != null">
-                and DueTime = #{dueTime}
+                and borrowing.DueTime = #{dueTime}
             </if>
             <if test="returnTime != null">
-                and ReturnTime = #{returnTime}
+                and borrowing.ReturnTime = #{returnTime}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and borrowing.LGH = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and borrowing.ReaderID = #{readerId}
             </if>
             <if test="bookId != null">
-                and BookID = #{bookId}
+                and borrowing.BookID = #{bookId}
             </if>
             <if test="state != null">
-                and state = #{state}
+                and borrowing.state = #{state}
             </if>
     </select>
 </mapper>
