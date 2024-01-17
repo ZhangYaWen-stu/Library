@@ -1,14 +1,18 @@
 package com.library.mapper;
 
 import com.library.pojo.Reservation;
+import com.library.pojo.ReservationList;
 import org.apache.ibatis.annotations.*;
 
+import javax.swing.plaf.LabelUI;
 import java.util.List;
 
 @Mapper
 public interface ReservationMapper {
 
     List<Reservation> getReservationList(Reservation reservation);
+
+    List<ReservationList> getReservationListAll(Reservation reservation);
 
     @Select("select * from reservation where ReservationID = #{id}")
     @ResultMap("reservationMap")

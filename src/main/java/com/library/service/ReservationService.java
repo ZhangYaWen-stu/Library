@@ -1,6 +1,7 @@
 package com.library.service;
 
 import com.library.pojo.Reservation;
+import com.library.pojo.ReservationList;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface ReservationService {
 
     public void checkReservationOverdueInquiry() throws Exception;
 
+    public List<ReservationList> queryReservationList(Reservation reservation);
 }

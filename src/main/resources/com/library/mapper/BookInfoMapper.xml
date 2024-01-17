@@ -10,6 +10,20 @@
         <result column="State" property="state"/>
         <result column="LibrarianGH" property="librarianJobNumber"/>
     </resultMap>
+    <resultMap id="bookInfoAllMap" type="com.library.pojo.Book">
+        <id property="id" column="ID"/>
+        <result column="ISBN" property="isbn"/>
+        <result column="Location" property="location"/>
+        <result column="State" property="state"/>
+        <result column="LibrarianGH" property="librarianJobNumber"/>
+        <result column="BookName" property="bookName"/>
+        <result column="Author" property="author"/>
+        <result column="Publisher" property="publisher"/>
+        <result column="PublishingDate" property="publishDate"/>
+        <result column="cover" property="cover"/>
+        <result column="unit_price" property="unitPrice"/>
+    </resultMap>
+
     <update id="updateBookInfo">
         update bookinfo
         <set>
@@ -69,6 +83,28 @@
         </where>
     </select>
 
+
+    <select id="getBookInfoAll" resultMap="bookInfoAllMap">
+        select bookinfo.ISBN as ISBN, BookName, Author, Publisher, PublishingDate, bookinfo.LibrarianGH,
+        ID, Location, State, bookcatalog.cover as cover, bookcatalog.unit_price as unit_price from bookinfo,bookcatalog
+        where
+            bookcatalog.ISBN = bookinfo.ISBN
+            <if test="id != null">
+                and ID = #{id}
+            </if>
+            <if test="isbn != null">
+                and ISBN = #{isbn}
+            </if>
+            <if test="location != null">
+                and Location = #{location}
+            </if>
+            <if test="state != null">
+                and State = #{state}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LibrarianGH = #{librarianJobNumber}
+            </if>
+    </select>
 
 
 </mapper>

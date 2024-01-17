@@ -4,10 +4,7 @@ import com.library.mapper.BookCatalogMapper;
 import com.library.mapper.BookInfoMapper;
 import com.library.mapper.ReaderMapper;
 import com.library.mapper.ReservationMapper;
-import com.library.pojo.BookCatalog;
-import com.library.pojo.BookInfo;
-import com.library.pojo.Reader;
-import com.library.pojo.Reservation;
+import com.library.pojo.*;
 import com.library.service.BookInfoService;
 import com.library.service.BorrowService;
 import com.library.service.ReservationService;
@@ -92,5 +89,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void updateReservation(Reservation reservation) {
         reservationMapper.updateReservation(reservation);
+    }
+
+    @Override
+    public List<ReservationList> queryReservationList(Reservation reservation) {
+        return reservationMapper.getReservationListAll(reservation);
     }
 }

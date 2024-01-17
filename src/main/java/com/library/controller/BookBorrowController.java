@@ -1,10 +1,7 @@
 package com.library.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.library.pojo.BookInfo;
-import com.library.pojo.Borrow;
-import com.library.pojo.Reader;
-import com.library.pojo.Result;
+import com.library.pojo.*;
 import com.library.service.BookCatalogService;
 import com.library.service.BookInfoService;
 import com.library.service.BorrowService;
@@ -143,13 +140,13 @@ public class BookBorrowController {
         Integer id = Integer.parseInt(claim.get("id").toString());
         borrow.setReaderId(id);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<Borrow> borrowList = borrowService.getBorrowList(borrow);
+        List<BorrowList> borrowList = borrowService.getBorrowListAll(borrow);
         return Result.success(borrowList);
     }
     @PostMapping("/admin/getBorrowBookList")
     public Result getBorrowBookListAdmin(@RequestBody Borrow borrow, Integer page, Integer pageSize) {
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<Borrow> borrowList = borrowService.getBorrowList(borrow);
+        List<BorrowList> borrowList = borrowService.getBorrowListAll(borrow);
         return Result.success(borrowList);
     }
 

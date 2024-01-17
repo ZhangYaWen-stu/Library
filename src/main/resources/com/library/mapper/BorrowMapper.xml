@@ -13,6 +13,20 @@
         <result property="readerId" column="ReaderID"/>
         <result property="state" column="state"/>
     </resultMap>
+
+    <resultMap id="borrowMapAll" type="com.library.pojo.BorrowList">
+        <id column="BorrowID" property="borrowId"/>
+        <result property="borrowTime" column="BorrowTime"/>
+        <result property="dueTime" column="DueTime"/>
+        <result property="returnTime" column="ReturnTime"/>
+        <result property="librarianJobNumber" column="LGH"/>
+        <result property="bookId" column="BookID"/>
+        <result property="readerId" column="ReaderID"/>
+        <result property="state" column="state"/>
+        <result property="bookName" column="BookName"/>
+        <result property="userName" column="Username"/>
+    </resultMap>
+
     <update id="updateBorrowList">
         update borrowing
         <set>
@@ -104,5 +118,41 @@
                 and state = #{state}
             </if>
         </where>
+    </select>
+    <select id="getBorrowListAll" resultMap="borrowMapAll">
+        select borrowing.BorrowID as BorrowID, borrowing.ReaderID as ReaderID,
+               borrowing.BookID as BookID, borrowing.BorrowTime as BorrowTime,
+               borrowing.DueTime as DueTime, borrowing.ReturnTime as ReturnTime,
+               borrowing.LGH as LGH, borrowing.state as state,
+               reader.Username as Username, bookcatalog.BookName as BookName
+        from borrowing, reader, bookcatalog, bookinfo
+        where
+            borrowing.BookID = bookinfo.ID and
+            borrowing.ReaderID = reader.ID and
+            bookinfo.ISBN = bookcatalog.ISBN
+            <if test="borrowId != null">
+                and BorrowId = #{borrowId}
+            </if>
+            <if test="borrowTime != null">
+                and BorrowTime = #{borrowTime}
+            </if>
+            <if test="dueTime != null">
+                and DueTime = #{dueTime}
+            </if>
+            <if test="returnTime != null">
+                and ReturnTime = #{returnTime}
+            </if>
+            <if test="librarianJobNumber != null">
+                and LGH = #{librarianJobNumber}
+            </if>
+            <if test="readerId != null">
+                and ReaderID = #{readerId}
+            </if>
+            <if test="bookId != null">
+                and BookID = #{bookId}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
     </select>
 </mapper>

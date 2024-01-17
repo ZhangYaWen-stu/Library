@@ -3,6 +3,7 @@ package com.library.controller;
 import com.github.pagehelper.PageHelper;
 import com.library.pojo.BookInfo;
 import com.library.pojo.Result;
+import com.library.pojo.Book;
 import com.library.service.BookCatalogService;
 import com.library.service.BookInfoService;
 import com.library.service.BorrowService;
@@ -29,7 +30,7 @@ public class BookInfoController {
     public Result getBook(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         bookInfo.setLibrarianJobNumber(null);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
+        List<Book> bookInfos = bookInfoService.getBookInfoAll(bookInfo);
         for(int i = 0; i < bookInfos.size() ; i++){
             bookInfos.get(0).setLibrarianJobNumber(null);
         }
@@ -39,7 +40,7 @@ public class BookInfoController {
     @PostMapping("/admin/getBookInfo")
     public Result getBookInfo(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<BookInfo> bookInfos = bookInfoService.getBookInfo(bookInfo);
+        List<Book> bookInfos = bookInfoService.getBookInfoAll(bookInfo);
         return Result.success(bookInfos);
     }
 

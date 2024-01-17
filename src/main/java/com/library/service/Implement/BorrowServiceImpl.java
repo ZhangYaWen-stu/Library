@@ -216,4 +216,9 @@ public class BorrowServiceImpl implements BorrowService {
     public void addBorrow(Borrow borrow) {
         borrowMapper.addBorrow(borrow);
     }
+
+    @Override
+    public List<BorrowList> getBorrowListAll(Borrow borrow) {
+        return borrowMapper.getBorrowListAll(borrow);
+    }
 }

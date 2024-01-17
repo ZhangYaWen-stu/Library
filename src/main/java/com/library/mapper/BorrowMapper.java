@@ -1,6 +1,7 @@
 package com.library.mapper;
 
 import com.library.pojo.Borrow;
+import com.library.pojo.BorrowList;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface BorrowMapper {
 
     @Insert("INSERT into borrowing(ReaderID, BookID, BorrowTime, DueTime, ReturnTime, LGH, state) values (#{readerId}, #{bookId}, #{borrowTime}, #{dueTime}, #{returnTime}, #{librarianJobNumber}, #{state})")
     void addBorrow(Borrow borrow);
+
+    List<BorrowList> getBorrowListAll(Borrow borrow);
 }

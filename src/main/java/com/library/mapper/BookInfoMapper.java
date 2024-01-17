@@ -1,5 +1,6 @@
 package com.library.mapper;
 
+import com.library.pojo.Book;
 import com.library.pojo.BookInfo;
 import com.library.pojo.Borrow;
 import org.apache.ibatis.annotations.Insert;
@@ -22,5 +23,7 @@ public interface BookInfoMapper {
 
     @Select("select * from bookinfo where ID = #{id}")
     BookInfo getBookInfoById(Integer id);
+
+    List<Book> getBookInfoAll(BookInfo bookInfo);
 
 }
