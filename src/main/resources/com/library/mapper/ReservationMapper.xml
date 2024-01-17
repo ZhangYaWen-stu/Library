@@ -113,20 +113,20 @@
             reservation.ISBN = bookcatalog.ISBN and
             reservation.ReaderID = reader.ID
             <if test="reservationId != null">
-                and ReservationID = #{reservationId}
+                and reservation.ReservationID = #{reservationId}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and reservation.LGH = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and reservation.ReaderID = #{readerId}
             </if>
             <if test="isbn != null">
-                and ISBN = #{isbn}
+                and reservation.ISBN = #{isbn}
             </if>
             <if test="state != null">
-                and state = #{state}
+                and reservation.state = #{state}
             </if>
-        order by ReservationTime ASC
+        order by reservation.ReservationTime ASC
     </select>
 </mapper>
