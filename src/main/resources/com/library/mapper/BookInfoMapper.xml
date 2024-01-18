@@ -105,6 +105,43 @@
                 and bookinfo.LibrarianGH = #{librarianJobNumber}
             </if>
     </select>
+    <select id="getBookInfoAllByBook" resultMap="bookInfoAllMap">
+
+        select bookinfo.ISBN as ISBN, BookName, Author, Publisher, PublishingDate, bookinfo.LibrarianGH,
+        ID, Location, State, bookcatalog.cover as cover, bookcatalog.unit_price as unit_price from bookinfo,bookcatalog
+        where
+        bookcatalog.ISBN = bookinfo.ISBN
+        <if test="id != null">
+            and bookinfo.ID = #{id}
+        </if>
+        <if test="isbn != null">
+            and bookinfo.ISBN = #{isbn}
+        </if>
+        <if test="location != null">
+            and bookinfo.Location = #{location}
+        </if>
+        <if test="state != null">
+            and bookinfo.State = #{state}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookinfo.LibrarianGH = #{librarianJobNumber}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookcatalog.BookName = #{bookName}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookcatalog.Author = #{author}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookcatalog.Publisher = #{publisher}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookcatalog.PublishingDate = #{publishDate}
+        </if>
+        <if test="librarianJobNumber != null">
+            and bookcatalog.unit_price = #{unitPrice}
+        </if>
+    </select>
 
 
 </mapper>

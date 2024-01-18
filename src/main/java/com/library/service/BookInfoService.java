@@ -19,4 +19,6 @@ public interface BookInfoService {
 
     BookInfo getBookById(Integer id);
     List<Book> getBookInfoAll(BookInfo bookInfo);
+
+    public List<Book> getBookInfoAllByBook(Book book);
 }
