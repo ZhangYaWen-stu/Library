@@ -108,7 +108,7 @@
     <select id="getBookInfoAllByBook" resultMap="bookInfoAllMap">
 
         select book_info.isbn as isbn, book_name, author, author, publishing_date, book_info.librarian_job_number as librarian_job_number,
-        id, location, state, book_catalog.cover as cover, book_catalog.unit_price as unit_price from bookinfo,bookcatalog
+        id, location, state, book_catalog.cover as cover, book_catalog.unit_price as unit_price from book_info,book_catalog
         where
         book_catalog.isbn = book_info.isbn
         <if test="id != null">
