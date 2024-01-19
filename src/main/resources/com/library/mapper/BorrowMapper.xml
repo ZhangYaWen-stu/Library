@@ -129,7 +129,7 @@
         where
             borrowing.bookId = bookinfo.id and
             borrowing.readerId = reader.id and
-            bookinfo.isbn = bookcatalog.isbn
+            bookinfo.isbn = book_catalog.isbn
             <if test="borrowId != null">
                 and borrowing.borrowId = #{borrowId}
             </if>
