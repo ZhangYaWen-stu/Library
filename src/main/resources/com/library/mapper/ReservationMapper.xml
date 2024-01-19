@@ -5,64 +5,64 @@
 
 <mapper namespace="com.library.mapper.ReservationMapper">
     <resultMap id="reservationMap" type="com.library.pojo.Reservation">
-        <id property="reservationId" column="ReservationID"/>
-        <result property="isbn" column="ISBN"/>
-        <result column="ReaderID" property="readerId"/>
-        <result property="reservationDeadline" column="ReservationDeadline"/>
-        <result column="LGH" property="librarianJobNumber"/>
-        <result column="ReservationTime" property="reservationTime"/>
+        <id property="reservationId" column="reservationId"/>
+        <result property="isbn" column="isbn"/>
+        <result column="readerId" property="readerId"/>
+        <result property="reservationDeadline" column="reservation_deadline"/>
+        <result column="librarian_job_number" property="librarianJobNumber"/>
+        <result column="reservation_time" property="reservationTime"/>
         <result column="state" property="state"/>
     </resultMap>
 
     <resultMap id="reservationAllMap" type="com.library.pojo.ReservationList">
-        <id property="reservationId" column="ReservationID"/>
-        <result property="isbn" column="ISBN"/>
-        <result column="ReaderID" property="readerId"/>
-        <result property="reservationDeadline" column="ReservationDeadline"/>
-        <result column="LGH" property="librarianJobNumber"/>
-        <result column="ReservationTime" property="reservationTime"/>
+        <id property="reservationId" column="reservationId"/>
+        <result property="isbn" column="isbn"/>
+        <result column="readerId" property="readerId"/>
+        <result property="reservationDeadline" column="reservation_deadline"/>
+        <result column="librarian_job_number" property="librarianJobNumber"/>
+        <result column="reservation_time" property="reservationTime"/>
         <result column="state" property="state"/>
-        <result column="BookName" property="bookName"/>
-        <result column="Username" property="userName"/>
+        <result column="book_name" property="bookName"/>
+        <result column="username" property="userName"/>
     </resultMap>
     <update id="updateReservation">
         update reservation
         <set>
             <if test="reservationTime != null">
-                ReservationTime = #{reservationTime},
+                reservation_time = #{reservationTime},
             </if>
             <if test="reservationDeadline != null">
-                ReservationDeadline = #{reservationDeadline},
+                reservation_deadline = #{reservationDeadline},
             </if>
             <if test="librarianJobNumber != null">
-                LGH = #{librarianJobNumber},
+                librarian_job_number = #{librarianJobNumber},
             </if>
             <if test="readerId != null">
-                ReaderID = #{readerId},
+                readerId = #{readerId},
             </if>
             <if test="isbn != null">
-                ISBN = #{isbn},
+                isbn = #{isbn},
             </if>
             <if test="state != null">
                 state = #{state},
             </if>
         </set>
-        where ReservationID = #{reservationId}
+        where reservationId = #{reservationId}
     </update>
     <delete id="deleteReservationList">
         delete from reservation
         <where>
             <if test="reservationId != null">
-                and ReservationID = #{reservationId}
+                and reservationId = #{reservationId}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and readerId = #{readerId}
             </if>
             <if test="isbn != null">
-                and ISBN = #{isbn}
+                and isbn = #{isbn}
             </if>
             <if test="state != null">
                 and state = #{state}
@@ -73,60 +73,60 @@
         select * from reservation
         <where>
             <if test="reservationId != null">
-                and ReservationID = #{reservationId}
+                and reservationId = #{reservationId}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and readerId = #{readerId}
             </if>
             <if test="isbn != null">
-                and ISBN = #{isbn}
+                and isbn = #{isbn}
             </if>
             <if test="state != null">
                 and state = #{state}
             </if>
         </where>
-        order by ReservationTime ASC
+        order by reservation_time ASC
     </select>
     <select id="getReservation" resultMap="reservationMap">
         select * from reservation
-        where ReservationID = #{reservationId}
+        where reservationId = #{reservationId}
         <if test="readerId != null">
-            and ReaderID = #{readerId}
+            and readerId = #{readerId}
         </if>
     </select>
 
     <select id="getReservationListAll" resultMap="reservationAllMap">
-        select  reservation.ReservationID as ReservationID,
-                reservation.ReaderID as ReaderID,
-                reservation.ISBN as ISBN,
-                reservation.ReservationTime as ReservationTime,
-                reservation.ReservationDeadline as ReservationDeadline,
-                reservation.LGH as LGH,
+        select  reservation.reservationId as reservationId,
+                reservation.readerId as readerId,
+                reservation.isbn as isbn,
+                reservation.reservation_time as reservation_time,
+                reservation.reservation_deadline as reservation_deadline,
+                reservation.librarian_job_number as librarian_job_number,
                 reservation.state as state,
-                reader.Username as Username,
-                bookcatalog.BookName as BookName
-        from reservation, bookcatalog, reader
+                reader.username as username,
+                bookcatalog.book_name as book_name
+        from reservation, book_catalog, reader
         where
-            reservation.ISBN = bookcatalog.ISBN and
-            reservation.ReaderID = reader.ID
+            reservation.isbn = bookcatalog.isbn and
+            reservation.readerId = reader.id
             <if test="reservationId != null">
-                and reservation.ReservationID = #{reservationId}
+                and reservation.reservationId = #{reservationId}
             </if>
             <if test="librarianJobNumber != null">
-                and reservation.LGH = #{librarianJobNumber}
+                and reservation.librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and reservation.ReaderID = #{readerId}
+                and reservation.readerId = #{readerId}
             </if>
             <if test="isbn != null">
-                and reservation.ISBN = #{isbn}
+                and reservation.isbn = #{isbn}
             </if>
             <if test="state != null">
                 and reservation.state = #{state}
             </if>
-        order by reservation.ReservationTime ASC
+        order by reservation.reservation_time
     </select>
 </mapper>

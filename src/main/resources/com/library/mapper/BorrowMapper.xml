@@ -4,79 +4,79 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.mapper.BorrowMapper">
     <resultMap id="borrowMap" type="com.library.pojo.Borrow">
-        <id column="BorrowID" property="borrowId"/>
-        <result property="borrowTime" column="BorrowTime"/>
-        <result property="dueTime" column="DueTime"/>
-        <result property="returnTime" column="ReturnTime"/>
-        <result property="librarianJobNumber" column="LGH"/>
-        <result property="bookId" column="BookID"/>
-        <result property="readerId" column="ReaderID"/>
+        <id column="borrowId" property="borrowId"/>
+        <result property="borrowTime" column="borrow_time"/>
+        <result property="dueTime" column="due_time"/>
+        <result property="returnTime" column="return_time"/>
+        <result property="librarianJobNumber" column="librarian_job_number"/>
+        <result property="bookId" column="bookId"/>
+        <result property="readerId" column="readerId"/>
         <result property="state" column="state"/>
     </resultMap>
 
     <resultMap id="borrowMapAll" type="com.library.pojo.BorrowList">
-        <id column="BorrowID" property="borrowId"/>
-        <result property="borrowTime" column="BorrowTime"/>
-        <result property="dueTime" column="DueTime"/>
-        <result property="returnTime" column="ReturnTime"/>
-        <result property="librarianJobNumber" column="LGH"/>
-        <result property="bookId" column="BookID"/>
-        <result property="readerId" column="ReaderID"/>
+        <id column="borrowId" property="borrowId"/>
+        <result property="borrowTime" column="borrow_time"/>
+        <result property="dueTime" column="due_time"/>
+        <result property="returnTime" column="return_time"/>
+        <result property="librarianJobNumber" column="librarian_job_number"/>
+        <result property="bookId" column="bookId"/>
+        <result property="readerId" column="readerId"/>
         <result property="state" column="state"/>
-        <result property="bookName" column="BookName"/>
-        <result property="userName" column="Username"/>
+        <result property="bookName" column="book_name"/>
+        <result property="userName" column="username"/>
     </resultMap>
 
     <update id="updateBorrowList">
         update borrowing
         <set>
             <if test="borrowTime != null">
-                BorrowTime = #{borrowTime},
+                borrow_time = #{borrowTime},
             </if>
             <if test="dueTime != null">
-                DueTime = #{dueTime},
+                due_time = #{dueTime},
             </if>
             <if test="returnTime != null">
-                ReturnTime = #{returnTime},
+                return_time = #{returnTime},
             </if>
             <if test="librarianJobNumber != null">
-                LGH = #{librarianJobNumber},
+                librarian_job_number = #{librarianJobNumber},
             </if>
             <if test="readerId != null">
-                ReaderID = #{readerId},
+                readerId = #{readerId},
             </if>
             <if test="bookId != null">
-                BookID = #{bookId},
+                bookId = #{bookId},
             </if>
             <if test="state != null">
                 state = #{state},
             </if>
         </set>
-        where BorrowID = #{borrowId}
+        where borrowId = #{borrowId}
     </update>
     <delete id="deleteBorrowList">
         delete from borrowing
         <where>
             <if test="borrowId != null">
-                BorrowId = #{borrowId}
+                borrowId = #{borrowId}
             </if>
             <if test="borrowTime != null">
-                and BorrowTime = #{borrowTime}
+                and borrow_time = #{borrowTime}
             </if>
             <if test="dueTime != null">
-                and DueTime = #{dueTime}
+                and due_time = #{dueTime}
             </if>
             <if test="returnTime != null">
-                and ReturnTime = #{returnTime}
+                and return_time = #{returnTime}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and readerId = #{readerId}
             </if>
             <if test="bookId != null">
-                and BookID = #{bookId}
+                and bookId = #{bookId}
             </if>
             <if test="state != null">
                 and state = #{state}
@@ -85,34 +85,34 @@
     </delete>
     <select id="getBorrow" resultMap="borrowMap">
         select * from borrowing
-        where BorrowID = #{borrowId}
+        where borrowId = #{borrowId}
         <if test="readerId != null">
-            and ReaderID = #{readerId}
+            and readerId = #{readerId}
         </if>
     </select>
     <select id="getBorrowList" resultMap="borrowMap">
         select * from borrowing
         <where>
             <if test="borrowId != null">
-                BorrowId = #{borrowId}
+                borrowId = #{borrowId}
             </if>
             <if test="borrowTime != null">
-                and BorrowTime = #{borrowTime}
+                and borrow_time = #{borrowTime}
             </if>
             <if test="dueTime != null">
-                and DueTime = #{dueTime}
+                and due_time = #{dueTime}
             </if>
             <if test="returnTime != null">
-                and ReturnTime = #{returnTime}
+                and return_time = #{returnTime}
             </if>
             <if test="librarianJobNumber != null">
-                and LGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and ReaderID = #{readerId}
+                and readerId = #{readerId}
             </if>
             <if test="bookId != null">
-                and BookID = #{bookId}
+                and bookId = #{bookId}
             </if>
             <if test="state != null">
                 and state = #{state}
@@ -120,36 +120,36 @@
         </where>
     </select>
     <select id="getBorrowListAll" resultMap="borrowMapAll">
-        select borrowing.BorrowID as BorrowID, borrowing.ReaderID as ReaderID,
-               borrowing.BookID as BookID, borrowing.BorrowTime as BorrowTime,
-               borrowing.DueTime as DueTime, borrowing.ReturnTime as ReturnTime,
-               borrowing.LGH as LGH, borrowing.state as state,
-               reader.Username as Username, bookcatalog.BookName as BookName
-        from borrowing, reader, bookcatalog, bookinfo
+        select borrowing.borrowId as borrowId, borrowing.readerId as readerId,
+               borrowing.bookId as bookId, borrowing.borrow_time as borrow_time,
+               borrowing.due_time as due_time, borrowing.return_time as return_time,
+               borrowing.librarian_job_number as librarian_job_number, borrowing.state as state,
+               reader.username as username, bookcatalog.book_name as book_name
+        from borrowing, reader, book_catalog, book_info
         where
-            borrowing.BookID = bookinfo.ID and
-            borrowing.ReaderID = reader.ID and
-            bookinfo.ISBN = bookcatalog.ISBN
+            borrowing.bookId = bookinfo.id and
+            borrowing.readerId = reader.id and
+            bookinfo.isbn = bookcatalog.isbn
             <if test="borrowId != null">
-                and borrowing.BorrowId = #{borrowId}
+                and borrowing.borrowId = #{borrowId}
             </if>
             <if test="borrowTime != null">
-                and borrowing.BorrowTime = #{borrowTime}
+                and borrowing.borrow_time = #{borrowTime}
             </if>
             <if test="dueTime != null">
-                and borrowing.DueTime = #{dueTime}
+                and borrowing.due_time = #{dueTime}
             </if>
             <if test="returnTime != null">
-                and borrowing.ReturnTime = #{returnTime}
+                and borrowing.return_time = #{returnTime}
             </if>
             <if test="librarianJobNumber != null">
-                and borrowing.LGH = #{librarianJobNumber}
+                and borrowing.librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="readerId != null">
-                and borrowing.ReaderID = #{readerId}
+                and borrowing.readerId = #{readerId}
             </if>
             <if test="bookId != null">
-                and borrowing.BookID = #{bookId}
+                and borrowing.bookId = #{bookId}
             </if>
             <if test="state != null">
                 and borrowing.state = #{state}

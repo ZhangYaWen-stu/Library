@@ -7,14 +7,14 @@ import org.apache.ibatis.annotations.*;
 public interface LibrarianMapper {
 
 
-    @Select("select * from librarian where Username = #{userName} and Password = #{password}")
+    @Select("select * from librarian where username = #{userName} and password = #{password}")
     @Results(value = {
-            @Result(property = "jobNumber", column = "GH", id = true),
-            @Result(property = "name", column = "XM"),
-            @Result(property = "password", column = "Password"),
-            @Result(property = "userName", column = "Username")})
+            @Result(property = "jobNumber", column = "librarian_job_number", id = true),
+            @Result(property = "name", column = "name"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "userName", column = "username")})
     Librarian getLibrarian(Librarian librarian);
 
-    @Update("update librarian set Password = #{password} where GH = #{id}")
+    @Update("update librarian set password = #{password} where librarian_job_number = #{id}")
     void updateLibrarianPassword(@Param("password")String password,@Param("id") Integer id);
 }

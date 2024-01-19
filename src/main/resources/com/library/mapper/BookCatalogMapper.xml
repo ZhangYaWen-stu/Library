@@ -6,85 +6,85 @@
 
     <resultMap id="bookCatalogMapper" type="com.library.pojo.BookCatalog">
 
-        <id column="ISBN" property="isbn"/>
-        <result column="BookName" property="bookName"/>
-        <result column="Author" property="author"/>
-        <result column="Publisher" property="publisher"/>
-        <result column="PublishingDate" property="publishDate"/>
+        <id column="isbn" property="isbn"/>
+        <result column="book_name" property="bookName"/>
+        <result column="author" property="author"/>
+        <result column="publisher" property="publisher"/>
+        <result column="publishing_date" property="publishDate"/>
         <result column="unit_price" property="unitPrice"/>
-        <result column="TotalCopies" property="totalCopies"/>
-        <result column="LibrarianGH" property="librarianJobNumber"/>
+        <result column="total_copies" property="totalCopies"/>
+        <result column="librarian_job_number" property="librarianJobNumber"/>
         <result column="cover" property="cover"/>
-        <result column="CurrentCopies" property="canBorrow"/>
+        <result column="can_borrow_number" property="canBorrow"/>
 
     </resultMap>
 
     <select id="getBookCatalog" resultMap="bookCatalogMapper">
-            select * from bookcatalog
+            select * from book_catalog
             <where>
                 <if test="isbn != null">
-                    and ISBN  Like #{isbn}
+                    and isbn  Like #{isbn}
                 </if>
                 <if test="author != null">
-                    and Author Like #{author}
+                    and author Like #{author}
                 </if>
                 <if test="bookName != null">
-                    and BookName Like #{bookName}
+                    and book_name Like #{bookName}
                 </if>
                 <if test="publisher != null">
-                    and Publisher Like #{publisher}
+                    and publisher Like #{publisher}
                 </if>
                 <if test="publishDate != null">
-                    and PublishingDate=#{publishDate}
+                    and publishing_date=#{publishDate}
                 </if>
                 <if test="librarianJobNumber != null">
-                    and LibrarianGH=#{librarianJobNumber}
+                    and librarian_job_number=#{librarianJobNumber}
                 </if>
                 <if test="unitPrice != null">
                     and unit_price <![CDATA[<]]> #{unitPrice}
                 </if>
                 <if test="canBorrow != null">
-                    and CurrentCopies = #{canBorrow}
+                    and can_borrow_number = #{canBorrow}
                 </if>
             </where>
     </select>
 
     <insert id="addBookCatalog">
-            insert into bookcatalog(ISBN,BookName,Author,Publisher,PublishingDate,unit_price,LibrarianGH,cover)
+            insert into book_catalog(isbn,book_name,author,publisher,publishing_date,unit_price,librarian_job_number,cover)
     values (#{isbn},#{bookName},#{author},#{publisher},#{publishDate},#{unitPrice},#{librarianJobNumber}, #{cover})
     </insert>
 
     <update id="updateBookCatalog">
-            update bookcatalog
+            update book_catalog
             <set>
                 <if test="bookName != null">
-                    BookName=#{bookName},
+                    book_name=#{bookName},
                 </if>
                 <if test="author != null">
-                    Author=#{author},
+                    author=#{author},
                 </if>
                 <if test="publisher != null">
-                    Publisher=#{publisher},
+                    publisher=#{publisher},
                 </if>
                 <if test="publishDate != null">
-                    PublishingDate=#{publishDate},
+                    publishing_date=#{publishDate},
                 </if>
                 <if test="unitPrice != null">
                     unit_price=#{unitPrice},
                 </if>
                 <if test="totalCopies != null">
-                    TotalCopies=#{totalCopies},
+                    total_copies=#{totalCopies},
                 </if>
                 <if test="librarianJobNumber != null">
-                    LibrarianGH=#{librarianJobNumber},
+                    librarian_job_number=#{librarianJobNumber},
                 </if>
                 <if test="cover != null">
                     cover=#{cover},
                 </if>
                 <if test="canBorrow != null">
-                    CurrentCopies=#{canBorrow},
+                    can_borrow_number=#{canBorrow},
                 </if>
             </set>
-            where ISBN=#{isbn}
+            where isbn=#{isbn}
     </update>
 </mapper>
