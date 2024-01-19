@@ -127,9 +127,9 @@
                reader.username as username, book_catalog.book_name as book_name
         from borrowing, reader, book_catalog, book_info
         where
-            borrowing.bookId = bookinfo.id and
+            borrowing.bookId = book_info.id and
             borrowing.readerId = reader.id and
-            bookinfo.isbn = book_catalog.isbn
+            book_info.isbn = book_catalog.isbn
             <if test="borrowId != null">
                 and borrowing.borrowId = #{borrowId}
             </if>
