@@ -126,4 +126,7 @@ public class BookInfoServiceImpl implements BookInfoService {
     public List<Book> getBookInfoAll(BookInfo bookInfo) {
         return bookInfoMapper.getBookInfoAll(bookInfo);
     }
+    public List<Book> getBookInfoAllByBook(Book book){
+        return bookInfoMapper.getBookInfoAllByBook(book);
+    }
 }

@@ -26,4 +26,5 @@ public interface BookInfoMapper {
 
     List<Book> getBookInfoAll(BookInfo bookInfo);
 
+    List<Book> getBookInfoAllByBook(Book book);
 }

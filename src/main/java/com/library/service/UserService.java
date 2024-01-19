@@ -15,6 +15,7 @@ public interface UserService {
     public void addReader(Reader reader);
     public Reader getReader(Reader reader);
     public Reader getReaderByName(String username);
+    public Reader getReaderById(Integer id);
     public List<Reader> getReadeList(Reader reader);
     public void updateReader(Reader reader);
     public void deleteReaderById(Integer id);

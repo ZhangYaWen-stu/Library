@@ -147,7 +147,7 @@ public class BorrowServiceImpl implements BorrowService {
                 Integer readerId = borrow.getReaderId();
                 Reader reader_ = new Reader();
                 reader_.setId(readerId);
-                Reader reader = userService.getReader(reader_);
+                Reader reader = userService.getReaderById(readerId);
                 BookInfo bookInfo_ = new BookInfo();
                 bookInfo_.setId(borrow_.getBookId());
                 BookInfo bookInfo = bookInfoMapper.getBookInfos(bookInfo_).get(0);
@@ -168,9 +168,7 @@ public class BorrowServiceImpl implements BorrowService {
             if(getBorrow(borrow).getState().equals("warned")){
                 borrow_ = getBorrow(borrow);
                 Integer readerId = borrow.getReaderId();
-                Reader reader_ = new Reader();
-                reader_.setId(readerId);
-                Reader reader = userService.getReader(reader_);
+                Reader reader = userService.getReaderById(readerId);
                 BookInfo bookInfo_ = new BookInfo();
                 bookInfo_.setId(borrow_.getBookId());
                 BookInfo bookInfo = bookInfoMapper.getBookInfos(bookInfo_).get(0);
@@ -202,9 +200,7 @@ public class BorrowServiceImpl implements BorrowService {
                 bookInfoMapper.updateBookInfo(bookInfo_);
                 BookCatalog bookCatalog = bookCatalogService.getBookCatalogByIsbn(bookInfo.getIsbn());
                 Integer readerId = reservation_.getReaderId();
-                Reader reader_ = new Reader();
-                reader_.setId(readerId);
-                Reader reader = userService.getReader(reader_);
+                Reader reader = userService.getReaderById(readerId);
                 mailUtil.sendReservation(reader, bookCatalog, reservation_);
                 return;
             }

@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Reader getReaderById(Integer id) {
+        return readerMapper.getReaderById(id);
+    }
+
+    @Override
     public Reader getReader(Reader reader) {
         return readerMapper.getReader(reader);
     }

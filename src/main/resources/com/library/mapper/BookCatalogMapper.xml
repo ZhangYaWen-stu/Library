@@ -87,6 +87,4 @@
             </set>
             where ISBN=#{isbn}
     </update>
-
-
 </mapper>

@@ -27,10 +27,10 @@ public class BookInfoController {
     BorrowService borrowService;
 
     @PostMapping("/getBook")
-    public Result getBook(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
-        bookInfo.setLibrarianJobNumber(null);
+    public Result getBook(Integer page, Integer pageSize, @RequestBody Book book){
+        book.setLibrarianJobNumber(null);
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<Book> bookInfos = bookInfoService.getBookInfoAll(bookInfo);
+        List<Book> bookInfos = bookInfoService.getBookInfoAllByBook(book);
         for(int i = 0; i < bookInfos.size() ; i++){
             bookInfos.get(0).setLibrarianJobNumber(null);
         }
@@ -38,9 +38,9 @@ public class BookInfoController {
     }
 
     @PostMapping("/admin/getBookInfo")
-    public Result getBookInfo(Integer page, Integer pageSize, @RequestBody BookInfo bookInfo){
+    public Result getBookInfo(Integer page, Integer pageSize, @RequestBody Book book){
         PageHelper.startPage((page - 1) * pageSize + 1, pageSize);
-        List<Book> bookInfos = bookInfoService.getBookInfoAll(bookInfo);
+        List<Book> bookInfos = bookInfoService.getBookInfoAllByBook(book);
         return Result.success(bookInfos);
     }
 

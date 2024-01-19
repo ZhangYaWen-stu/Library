@@ -60,7 +60,7 @@ public class MailUtil {
         Date borrowTime = borrow.getBorrowTime();
         Date overdueTime = borrow.getDueTime();
         String email = reader.getEmail();
-        String subject = "借书逾期提醒";
+        String subject = "还书逾期提醒";
         String context = "尊敬的用户" + username + "您好，您于" + borrowTime.toString() +"所预约的《" + bookName +"》" +
                 "于"+ overdueTime.toString() +"已超过最长借阅时间，请尽快到图书馆还书并缴纳罚金。";
         sendMail(context, email, subject);
@@ -71,7 +71,7 @@ public class MailUtil {
         Date borrowTime = borrow.getBorrowTime();
         Date overdueTime = borrow.getDueTime();
         String email = reader.getEmail();
-        String subject = "借书逾期提醒";
+        String subject = "还书逾期提醒";
         String context = "尊敬的用户" + username + "您好，您于" + borrowTime.toString() + "所预约的《" + bookName + "》" +
                 "将于" + overdueTime.toString() + "超过最长借阅时间，请尽快到图书馆还书，逾期将会收取罚金。";
         sendMail(context, email, subject);
