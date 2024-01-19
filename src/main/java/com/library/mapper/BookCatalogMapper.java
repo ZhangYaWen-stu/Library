@@ -14,19 +14,19 @@ public interface BookCatalogMapper {
 
     public void updateBookCatalog(BookCatalog bookCatalog);
 
-    @Update("update bookcatalog set CurrentCopies = CurrentCopies + ( #{num} ) where ISBN = #{isbn}")
+    @Update("update book_catalog set can_borrow_number = can_borrow_number + ( #{num} ) where isbn = #{isbn}")
     public void setCanBorrow(Integer num, String isbn);
 
-    @Update("update bookcatalog set TotalCopies = TotalCopies + ( #{num} ) where ISBN = #{isbn}")
+    @Update("update book_catalog set total_copies = total_copies + ( #{num} ) where isbn = #{isbn}")
     public void setTotalBorrow(Integer num, String isbn);
-    @Select("select * from bookcatalog")
+    @Select("select * from book_catalog")
     @ResultMap("bookCatalogMapper")
     public List<BookCatalog> getAllBookCatalog();
 
-    @Delete("delete from bookcatalog where isbn = #{isbn}")
+    @Delete("delete from book_catalog where isbn = #{isbn}")
     public void deleteBookCatalogByIsbn(String isbn);
 
-    @Select("select * from bookcatalog where isbn = #{isbn}")
+    @Select("select * from book_catalog where isbn = #{isbn}")
     @ResultMap("bookCatalogMapper")
     public BookCatalog getBookCatalogByIsbn(String isbn);
 

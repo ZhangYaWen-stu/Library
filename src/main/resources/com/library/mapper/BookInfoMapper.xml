@@ -4,142 +4,142 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.mapper.BookInfoMapper">
     <resultMap id="bookInfoMap" type="com.library.pojo.BookInfo">
-        <id property="id" column="ID"/>
-        <result column="ISBN" property="isbn"/>
-        <result column="Location" property="location"/>
-        <result column="State" property="state"/>
-        <result column="LibrarianGH" property="librarianJobNumber"/>
+        <id property="id" column="id"/>
+        <result column="isbn" property="isbn"/>
+        <result column="location" property="location"/>
+        <result column="state" property="state"/>
+        <result column="librarian_job_number" property="librarianJobNumber"/>
     </resultMap>
     <resultMap id="bookInfoAllMap" type="com.library.pojo.Book">
-        <id property="id" column="ID"/>
-        <result column="ISBN" property="isbn"/>
-        <result column="Location" property="location"/>
-        <result column="State" property="state"/>
-        <result column="LibrarianGH" property="librarianJobNumber"/>
-        <result column="BookName" property="bookName"/>
-        <result column="Author" property="author"/>
-        <result column="Publisher" property="publisher"/>
-        <result column="PublishingDate" property="publishDate"/>
+        <id property="id" column="id"/>
+        <result column="isbn" property="isbn"/>
+        <result column="location" property="location"/>
+        <result column="state" property="state"/>
+        <result column="librarian_job_number" property="librarianJobNumber"/>
+        <result column="book_name" property="bookName"/>
+        <result column="author" property="author"/>
+        <result column="publisher" property="publisher"/>
+        <result column="publishing_date" property="publishDate"/>
         <result column="cover" property="cover"/>
         <result column="unit_price" property="unitPrice"/>
     </resultMap>
 
     <update id="updateBookInfo">
-        update bookinfo
+        update book_info
         <set>
             <if test="isbn != null">
-                ISBN = #{isbn},
+                isbn = #{isbn},
             </if>
             <if test="location != null">
-                Location = #{location},
+                location = #{location},
             </if>
             <if test="state != null">
-                State = #{state},
+                state = #{state},
             </if>
             <if test="librarianJobNumber != null">
-                LibrarianGH = #{librarianJobNumber},
+                librarian_job_number = #{librarianJobNumber},
             </if>
         </set>
-        where ID = #{id}
+        where id = #{id}
     </update>
     <delete id="deleteBookInfo">
-        delete from bookinfo
+        delete from book_info
         <where>
             <if test="isbn != null">
-                ISBN = #{isbn}
+                isbn = #{isbn}
             </if>
             <if test="location != null">
-                and Location = #{location}
+                and location = #{location}
             </if>
             <if test="state != null">
-                and State = #{state}
+                and state = #{state}
             </if>
             <if test="librarianJobNumber != null">
-                and LibrarianGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
             <if test="id != null">
-                and ID = #{id}
+                and id = #{id}
             </if>
         </where>
     </delete>
     <select id="getBookInfos" resultMap="bookInfoMap">
-        select * from bookinfo
+        select * from book_info
         <where>
             <if test="id != null">
-                and ID = #{id}
+                and id = #{id}
             </if>
             <if test="isbn != null">
-                and ISBN = #{isbn}
+                and isbn = #{isbn}
             </if>
             <if test="location != null">
-                and Location = #{location}
+                and location = #{location}
             </if>
             <if test="state != null">
-                and State = #{state}
+                and state = #{state}
             </if>
             <if test="librarianJobNumber != null">
-                and LibrarianGH = #{librarianJobNumber}
+                and librarian_job_number = #{librarianJobNumber}
             </if>
         </where>
     </select>
 
 
     <select id="getBookInfoAll" resultMap="bookInfoAllMap">
-        select bookinfo.ISBN as ISBN, BookName, Author, Publisher, PublishingDate, bookinfo.LibrarianGH,
-        ID, Location, State, bookcatalog.cover as cover, bookcatalog.unit_price as unit_price from bookinfo,bookcatalog
+        select book_info.isbn as isbn, book_name, author, publisher, publishing_date, book_info.librarian_job_number as librarian_job_number
+        id, location, state, book_catalog.cover as cover, book_catalog.unit_price as unit_price from book_info,book_catalog
         where
-            bookcatalog.ISBN = bookinfo.ISBN
+        book_catalog.isbn = book_info.isbn
             <if test="id != null">
-                and bookinfo.ID = #{id}
+                and book_info.id = #{id}
             </if>
             <if test="isbn != null">
-                and bookinfo.ISBN = #{isbn}
+                and book_info.isbn = #{isbn}
             </if>
             <if test="location != null">
-                and bookinfo.Location = #{location}
+                and book_info.location = #{location}
             </if>
             <if test="state != null">
-                and bookinfo.State = #{state}
+                and book_info.state = #{state}
             </if>
             <if test="librarianJobNumber != null">
-                and bookinfo.LibrarianGH = #{librarianJobNumber}
+                and book_info.librarian_job_number = #{librarianJobNumber}
             </if>
     </select>
     <select id="getBookInfoAllByBook" resultMap="bookInfoAllMap">
 
-        select bookinfo.ISBN as ISBN, BookName, Author, Publisher, PublishingDate, bookinfo.LibrarianGH,
-        ID, Location, State, bookcatalog.cover as cover, bookcatalog.unit_price as unit_price from bookinfo,bookcatalog
+        select book_info.isbn as isbn, book_name, author, author, publishing_date, book_info.librarian_job_number as librarian_job_number,
+        id, location, state, book_catalog.cover as cover, book_catalog.unit_price as unit_price from bookinfo,bookcatalog
         where
-        bookcatalog.ISBN = bookinfo.ISBN
+        book_catalog.isbn = book_info.isbn
         <if test="id != null">
-            and bookinfo.ID = #{id}
+            and book_info.id = #{id}
         </if>
         <if test="isbn != null">
-            and bookinfo.ISBN = #{isbn}
+            and book_info.isbn = #{isbn}
         </if>
         <if test="location != null">
-            and bookinfo.Location = #{location}
+            and book_info.location = #{location}
         </if>
         <if test="state != null">
-            and bookinfo.State = #{state}
+            and book_info.state = #{state}
         </if>
         <if test="librarianJobNumber != null">
-            and bookinfo.LibrarianGH = #{librarianJobNumber}
+            and book_info.librarian_job_number = #{librarianJobNumber}
         </if>
         <if test="librarianJobNumber != null">
-            and bookcatalog.BookName = #{bookName}
+            and book_catalog.book_name = #{bookName}
         </if>
         <if test="librarianJobNumber != null">
-            and bookcatalog.Author = #{author}
+            and book_catalog.author = #{author}
         </if>
         <if test="librarianJobNumber != null">
-            and bookcatalog.Publisher = #{publisher}
+            and book_catalog.publisher = #{publisher}
         </if>
         <if test="librarianJobNumber != null">
-            and bookcatalog.PublishingDate = #{publishDate}
+            and book_catalog.publishing_date = #{publishDate}
         </if>
         <if test="librarianJobNumber != null">
-            and bookcatalog.unit_price = #{unitPrice}
+            and book_catalog.unit_price = #{unitPrice}
         </if>
     </select>
 

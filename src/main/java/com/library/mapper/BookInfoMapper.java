@@ -16,12 +16,12 @@ public interface BookInfoMapper {
 
     void updateBookInfo(BookInfo bookInfo);
 
-    @Insert("insert into bookinfo(ISBN, Location, State, LibrarianGH) values (#{isbn}, #{location}, #{state}, #{librarianJobNumber})")
+    @Insert("insert into book_info(isbn, location, state, librarian_job_number) values (#{isbn}, #{location}, #{state}, #{librarianJobNumber})")
     void addBookInfo(BookInfo bookInfo);
 
     void deleteBookInfo(BookInfo bookInfo);
 
-    @Select("select * from bookinfo where ID = #{id}")
+    @Select("select * from book_info where id = #{id}")
     BookInfo getBookInfoById(Integer id);
 
     List<Book> getBookInfoAll(BookInfo bookInfo);

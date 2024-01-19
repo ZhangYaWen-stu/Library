@@ -9,31 +9,31 @@ import java.util.List;
 public interface ReaderMapper {
 
     @ResultMap("readerMap")
-    @Select("select * from reader where Username = #{userName} and Password = #{password}")
+    @Select("select * from reader where username = #{userName} and password = #{password}")
     Reader getReader(Reader reader);
 
     @ResultMap("readerMap")
-    @Select("select * from reader where Username = #{username}")
+    @Select("select * from reader where username = #{username}")
     Reader getReaderByUsername(String username);
     @ResultMap("readerMap")
     List<Reader> getReaderList(Reader reader);
 
-    @Insert("insert into reader(Username,Password,Email) " +
+    @Insert("insert into reader(username,password,email) " +
             "values(#{userName},#{password}, #{email})")
     void addReader(Reader reader);
-    @Delete("delete from reader where ID = #{id}")
+    @Delete("delete from reader where id = #{id}")
     void deleteReaderById(Integer id);
 
     void updateReader(Reader reader);
 
-    @Update("update reader set BorrNum = BorrNum + (#{num}) where ID = #{id}")
+    @Update("update reader set borrow_number = borrow_number + (#{num}) where id = #{id}")
     void setBorrowNum(Integer num, Integer id);
 
     @ResultMap("readerMap")
     @Select("select * from reader")
     List<Reader> getAllReader();
 
-    @Select("select * from reader where ID = #{id}")
+    @Select("select * from reader where id = #{id}")
     @ResultMap("readerMap")
     Reader getReaderById(Integer id);
 }
