@@ -110,7 +110,7 @@
                 bookcatalog.book_name as book_name
         from reservation, book_catalog, reader
         where
-            reservation.isbn = bookcatalog.isbn and
+            reservation.isbn = book_catalog.isbn and
             reservation.readerId = reader.id
             <if test="reservationId != null">
                 and reservation.reservationId = #{reservationId}

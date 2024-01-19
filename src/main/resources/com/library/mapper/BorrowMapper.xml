@@ -124,7 +124,7 @@
                borrowing.bookId as bookId, borrowing.borrow_time as borrow_time,
                borrowing.due_time as due_time, borrowing.return_time as return_time,
                borrowing.librarian_job_number as librarian_job_number, borrowing.state as state,
-               reader.username as username, bookcatalog.book_name as book_name
+               reader.username as username, book_catalog.book_name as book_name
         from borrowing, reader, book_catalog, book_info
         where
             borrowing.bookId = bookinfo.id and
