@@ -107,7 +107,7 @@
                 reservation.librarian_job_number as librarian_job_number,
                 reservation.state as state,
                 reader.username as username,
-                bookcatalog.book_name as book_name
+                book_catalog.book_name as book_name
         from reservation, book_catalog, reader
         where
             reservation.isbn = book_catalog.isbn and

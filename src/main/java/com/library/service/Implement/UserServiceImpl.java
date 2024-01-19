@@ -155,4 +155,7 @@ public class UserServiceImpl implements UserService{
         claims.put("role", "librarian");
         return jwtUtil.getToken(claims);
     }
+    public void setBorrowNum(Integer num, Integer readerId){
+        readerMapper.setBorrowNum(num, readerId);
+    }
 }

@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static java.lang.System.out;
+
 @Service
 public class BookCatalogServiceImpl implements BookCatalogService {
 
@@ -55,6 +57,11 @@ public class BookCatalogServiceImpl implements BookCatalogService {
 
     @Override
     public void updateBookCatalog(BookCatalog bookCatalog){
+        if(bookCatalog.getBookName()==null&&bookCatalog.getAuthor()==null&&
+                bookCatalog.getPublisher()==null&&bookCatalog.getPublishDate()==null
+        &&bookCatalog.getUnitPrice()==null){
+            return;
+        }
         bookCatalogMapper.updateBookCatalog(bookCatalog);
     }
 
@@ -89,6 +96,7 @@ public class BookCatalogServiceImpl implements BookCatalogService {
         InputStream inputStream = file.getInputStream();
         objectName = UUID.randomUUID() + objectName.substring(objectName.lastIndexOf("."));
         String avatar = aliOssUtil.uploadFile(objectName, inputStream);
+        out.println(avatar);
         BookCatalog bookCatalog = new BookCatalog();
         bookCatalog.setIsbn(isbn);
         bookCatalog.setCover(avatar);

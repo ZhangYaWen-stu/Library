@@ -7,6 +7,7 @@ import com.library.pojo.*;
 import com.library.service.BookInfoService;
 import com.library.service.BorrowService;
 import com.library.service.ReservationService;
+import com.library.service.UserService;
 import com.library.util.LocalThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +27,8 @@ public class ReservationController {
     BookInfoService bookInfoService;
     @Autowired
     BorrowService borrowService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/deleteReservationReader")
     public Result deleteReservationReader(Integer reservationId) throws Exception {
@@ -158,6 +161,7 @@ public class ReservationController {
         }
         reservationService.deleteReservation(reservations.get(0).getReservationId());
         Borrow borrow = new Borrow();
+        userService.setBorrowNum(1, readerId);
         borrow.setReaderId(readerId);
         borrow.setBookId(bookInfos.get(0).getId());
         borrow.setState("normal");
