@@ -40,7 +40,7 @@ public class ReservationController {
         }
         if(reservation_.getState().equals("reserved")){
             BookInfo bookInfo = new BookInfo();
-            bookInfo.setIsbn(reservation.getIsbn());
+            bookInfo.setIsbn(reservation_.getIsbn());
             bookInfo.setState("reserved");
             BookInfo bookInfo_ = bookInfoService.getBookInfo(bookInfo).get(0);
             bookInfo_.setState("canBorrow");
@@ -93,9 +93,9 @@ public class ReservationController {
         if(reservation_ == null){
             return Result.fail("不存在此种预约");
         }
-        if(reservation.getState().equals("reserved")){
+        if(reservation_.getState().equals("reserved")){
             BookInfo bookInfo = new BookInfo();
-            bookInfo.setIsbn(reservation.getIsbn());
+            bookInfo.setIsbn(reservation_.getIsbn());
             bookInfo.setState("reserved");
             BookInfo bookInfo_ = bookInfoService.getBookInfo(bookInfo).get(0);
             bookInfo_.setState("canBorrow");
