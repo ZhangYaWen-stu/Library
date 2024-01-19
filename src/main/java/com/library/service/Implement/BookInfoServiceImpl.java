@@ -36,6 +36,13 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     @Override
     public void updateBookInfo(BookInfo bookInfo) throws Exception{
+        if(bookInfo.getLocation() != null){
+            if(bookInfo.getLocation().equals("图书流通室")) {
+                bookInfo.setState("canBorrow");
+            }else if(bookInfo.getLocation().equals("图书阅览室")){
+                bookInfo.setState("cantBorrow");
+            }
+        }
         BookInfo bookInfo_ = bookInfoMapper.getBookInfoById(bookInfo.getId());
         bookInfoMapper.updateBookInfo(bookInfo);
         if(bookInfo.getState() != null)
