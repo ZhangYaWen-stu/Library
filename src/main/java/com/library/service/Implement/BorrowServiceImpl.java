@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static java.lang.System.out;
+
 @Service
 public class BorrowServiceImpl implements BorrowService {
     @Autowired
@@ -135,7 +137,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    @Scheduled(fixedRate = 10 * 1000)
+    @Scheduled(fixedDelay = 10 * 1000)
     public void checkBorrowOverdue() throws Exception{
         List<Borrow> borrows = borrowMapper.getBorrowOverdue();
         for(Borrow borrow_ : borrows){
@@ -144,7 +146,7 @@ public class BorrowServiceImpl implements BorrowService {
             borrowMapper.setOverdueBorrow(borrow_.getBorrowId());
             if(getBorrow(borrow).getState().equals("overdue")){
                 borrow_ = getBorrow(borrow);
-                Integer readerId = borrow.getReaderId();
+                Integer readerId = borrow_.getReaderId();
                 Reader reader_ = new Reader();
                 reader_.setId(readerId);
                 Reader reader = userService.getReaderById(readerId);
@@ -158,7 +160,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    @Scheduled(fixedRate = 10 * 1000)
+    @Scheduled(fixedDelay = 10 * 1000)
     public void checkBorrowOverdueWarn() throws Exception{
         List<Borrow> borrows = borrowMapper.getBorrowOverdueWarn();
         for(Borrow borrow_ : borrows){
@@ -167,8 +169,9 @@ public class BorrowServiceImpl implements BorrowService {
             borrowMapper.setWarnBorrow(borrow_.getBorrowId());
             if(getBorrow(borrow).getState().equals("warned")){
                 borrow_ = getBorrow(borrow);
-                Integer readerId = borrow.getReaderId();
+                Integer readerId = borrow_.getReaderId();
                 Reader reader = userService.getReaderById(readerId);
+                out.println(reader);
                 BookInfo bookInfo_ = new BookInfo();
                 bookInfo_.setId(borrow_.getBookId());
                 BookInfo bookInfo = bookInfoMapper.getBookInfos(bookInfo_).get(0);

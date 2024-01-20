@@ -64,7 +64,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    @Scheduled(fixedRate = 1000 * 60 * 10)
+    @Scheduled(fixedDelay = 1000 * 60 * 10)
     public void checkReservationOverdueInquiry() throws Exception{
         List<Reservation> reservations = reservationOverdue();
         for(Reservation reservation: reservations){
