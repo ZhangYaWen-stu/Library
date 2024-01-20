@@ -80,10 +80,12 @@ public class UserController {
         String username = req.get("username");
         String password = req.get("password");
         String email = req.get("email");
+        String phone = req.get("telephoneNumber");
         if(userService.getReaderByName(username) != null){
             return Result.error("用户已存在");
         }
         Reader reader = new Reader();
+        reader.setTelephoneNumber(phone);
         reader.setUserName(username);
         reader.setPassword(password);
         reader.setEmail(email);

@@ -27,4 +27,6 @@ public interface UserService {
     public String updateLibrarianPassword(String password, String token);
     public String loginReader(String username, String password);
     public String loginLibrarian(String username, String password);
+
+    public void setBorrowNum(Integer num, Integer readerId);
 }
