@@ -135,7 +135,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    @Scheduled(fixedRate = 10 * 60 * 1000)
+    @Scheduled(fixedRate = 10 * 1000)
     public void checkBorrowOverdue() throws Exception{
         List<Borrow> borrows = borrowMapper.getBorrowOverdue();
         for(Borrow borrow_ : borrows){
@@ -158,7 +158,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    @Scheduled(fixedRate = 10 * 60 * 1000)
+    @Scheduled(fixedRate = 10 * 1000)
     public void checkBorrowOverdueWarn() throws Exception{
         List<Borrow> borrows = borrowMapper.getBorrowOverdueWarn();
         for(Borrow borrow_ : borrows){

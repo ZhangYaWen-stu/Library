@@ -56,6 +56,14 @@ public class BookInfoController {
         if(!bookInfo_.getState().equals("canBorrow") && !bookInfo_.getState().equals("cantBorrow")){
             return Result.fail("处于被预约或已借出状态的书目不可修改");
         }
+        if(bookInfo.getLocation() != null)
+        {
+            if (bookInfo.getLocation().equals("图书阅览室")) {
+                bookInfo.setState("cantBorrow");
+            } else if (bookInfo.getLocation().equals("图书流通室")) {
+                bookInfo.setState("canBorrow");
+            }
+        }
         bookInfoService.updateBookInfo(bookInfo);
         return Result.success();
     }
